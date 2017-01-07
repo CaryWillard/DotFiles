@@ -44,12 +44,23 @@ set autoindent
 
 " Filetype specific features
 
+
+fu CloseChar(open, close)
+	inoremap open, open close<Left>
+endfu
+
 fu InsertClosingChars()
-	inoremap ( ()<Esc>i
+	inoremap ( ()<Left>
 	inoremap < <><Left>
 	inoremap " ""<Left>
 	inoremap ' ''<Left>
 	inoremap [ []<Left>
+	inoremap { {}<Left>
+	inoremap (<Space> (<Space><Space>)<Left><Left>
+	inoremap <<Space> <<Space><Space>><Left><Left>
+	inoremap [<Space> [<Space><Space>]<Left><Left>
+	inoremap {<Space> {<Space><Space>}<Left><Left>
+	inoremap <C-K> <C-O>%<C-O>%<right>
 endfu
 
 " Curly braces open on separate lines
