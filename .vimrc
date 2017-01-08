@@ -57,7 +57,8 @@ fu InsertClosingChars()
 	inoremap [ []<Left>
 	inoremap { {}<Left>
 	inoremap (<Space> (<Space><Space>)<Left><Left>
-	inoremap <<Space> <<Space><Space>><Left><Left>
+	" Allows a way out of the auto-closing mapping.
+	inoremap <<Space> <<Space>
 	inoremap [<Space> [<Space><Space>]<Left><Left>
 	inoremap {<Space> {<Space><Space>}<Left><Left>
 	inoremap <C-K> <C-O>%<C-O>%<right>
