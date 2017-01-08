@@ -51,27 +51,25 @@ endfu
 
 fu InsertClosingChars()
 	inoremap ( ()<Left>
-	inoremap < <><Left>
 	inoremap " ""<Left>
 	inoremap ' ''<Left>
 	inoremap [ []<Left>
 	inoremap { {}<Left>
 	inoremap (<Space> (<Space><Space>)<Left><Left>
 	" Allows a way out of the auto-closing mapping.
-	inoremap <<Space> <<Space>
 	inoremap [<Space> [<Space><Space>]<Left><Left>
 	inoremap {<Space> {<Space><Space>}<Left><Left>
-	inoremap <C-K> <C-O>%<C-O>%<right>
+	"inoremap <C-K> <C-O>%<C-O>%<right>
 endfu
 
 " Curly braces open on separate lines
 fu CurlyBracesCs()
-	inoremap {<CR> <Space><CR>{<CR><Tab><CR><Bs>}<Up><Right>
+	inoremap {<CR> <CR>{<CR><Tab><CR><Bs>}<Up><Right>
 endfu
 
 " Curly braces open with the first brace on the same line.
 fu CurlyBracesJava()
-	inoremap {<CR> <Space>{<CR><Tab><CR><Bs>}<Up><Right>
+	inoremap {<CR> {<CR><Tab><CR><Bs>}<Up><Right>
 endfu
 
 fu CppSettings()
