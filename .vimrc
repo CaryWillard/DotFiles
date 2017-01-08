@@ -73,17 +73,17 @@ fu CurlyBracesJava()
 endfu
 
 fu CppSettings()
-	:call InsertClosingChars()
+	":call InsertClosingChars()
 	:call CurlyBracesCs()
 endfu
 
 fu RsSettings()
-	:call InsertClosingChars()
+	":call InsertClosingChars()
 	:call CurlyBracesJava()
 endfu
 
 fu PySettings()
-	:call InsertClosingChars()
+	":call InsertClosingChars()
 	" After colon, indent to new scope
 	inoremap : :<CR><Tab>
 endfu
