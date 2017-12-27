@@ -1,5 +1,22 @@
+" .vimrc
+
 " Pathogen
 execute pathogen#infect()
+
+" Standard vim stuff
+filetype plugin indent on
+syntax on
+set nu
+set rnu
+set hlsearch
+
+" Tab characters
+set tabstop=4
+set softtabstop=0
+set expandtab " Make tabs into spaces
+set shiftwidth=4
+set smarttab
+set autoindent
 
 " Syntastic
 set statusline+=%#warningmsg#
@@ -9,12 +26,23 @@ set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_wq = 1
 
 " Rust
-let g:syntastic_rust_checkers = ['rustc']
-"let g:rustfmt_autosave = 1
+let g:syntastic_rust_checkers = ['cargo']
+let g:rustfmt_autosave = 1
+
+" Rust - delimitMate
+au FileType rust let b:delimitMate_quotes = "\""
+
+" Rust - vim-racer
+set hidden
+let g:racer_cmd = "/home/cary/.cargo/bin/racer"
+let g:racer_experimental_completer = 1
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 " C++
 let g:syntastic_cpp_include_dirs = ['/usr/local/boost_1_62_0/']
@@ -31,71 +59,15 @@ let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 
-" Line numbers
-set nu
+" Rainbow parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
-" Tab characters
-set tabstop=4
-set softtabstop=0
-set noexpandtab
-set shiftwidth=4
-set smarttab
-set autoindent
+" Evaluate Clojure buffers on load - for vim-clojure-highlight
+autocmd BufRead *.clj try | silent! Require | catch /^Fireplace/ | endtry
 
-" Filetype specific features
+" DelimiteMate
+let g:delimitMate_expand_cr = 2
 
-
-fu CloseChar(open, close)
-	inoremap open, open close<Left>
-endfu
-
-fu InsertClosingChars()
-	inoremap ( ()<Left>
-	inoremap " ""<Left>
-	inoremap ' ''<Left>
-	inoremap [ []<Left>
-	inoremap { {}<Left>
-	inoremap (<Space> (<Space><Space>)<Left><Left>
-	" Allows a way out of the auto-closing mapping.
-	inoremap [<Space> [<Space><Space>]<Left><Left>
-	inoremap {<Space> {<Space><Space>}<Left><Left>
-	"inoremap <C-K> <C-O>%<C-O>%<right>
-endfu
-
-" Curly braces open on separate lines
-fu CurlyBracesCs()
-	inoremap {<CR> <CR>{<CR><Tab><CR><Bs>}<Up><Right>
-endfu
-
-" Curly braces open with the first brace on the same line.
-fu CurlyBracesJava()
-	inoremap {<CR> {<CR><Tab><CR><Bs>}<Up><Right>
-endfu
-
-fu CppSettings()
-	":call InsertClosingChars()
-	:call CurlyBracesCs()
-endfu
-
-fu RsSettings()
-	":call InsertClosingChars()
-	:call CurlyBracesJava()
-endfu
-
-fu PySettings()
-	":call InsertClosingChars()
-	" After colon, indent to new scope
-	inoremap : :<CR><Tab>
-endfu
-
-" Call a function to set specific settings
-au BufNewFile,BufRead *.c :call CppSettings()
-au BufNewFile,BufRead *.h :call CppSettings()
-au BufNewFile,BufRead *.cpp :call CppSettings()
-au BufNewFile,BufRead *.cs :call CppSettings()
-au BufNewFile,BufRead *.rs :call RsSettings()
-au BufNewFile,BufRead *.java :call RsSettings()
-au BufNewFile,BufRead *.py :call PySettings()
-
-" Enable filetype recognition
-filetype on
