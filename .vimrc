@@ -28,6 +28,10 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 
+" DelimiteMate
+let g:delimitMate_expand_cr = 2
+let g:delimitMate_smart_quotes = 1
+
 " Rust
 let g:syntastic_rust_checkers = ['cargo']
 let g:rustfmt_autosave = 1
@@ -67,7 +71,6 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " Evaluate Clojure buffers on load - for vim-clojure-highlight
 autocmd BufRead *.clj try | silent! Require | catch /^Fireplace/ | endtry
-
-" DelimiteMate
-let g:delimitMate_expand_cr = 2
+au FileType clojure let b:delimitMate_quotes = "\""
+au FileType clojure let g:delimitMate_expand_cr = 0
 
